@@ -1,0 +1,244 @@
+---
+title: "La-1 EDA"
+author: "Kush (1NT18IS086),Ajay(1NT18IS019)"
+date: "7/13/2021"
+output: pdf_document
+---
+##1.Read the csv data file.
+
+happiness_data=read.csv(file=file.choose(),header = TRUE)
+
+##2.Display head of data
+
+head(happiness_data)
+
+##3.Display first n rows specified.
+
+head(happiness_data,n=10)
+
+##4.Display tail of data.
+
+tail(happiness_data)
+
+##5.Display n rows specified from bottom
+
+tail(happiness_data,n=10)
+
+#6.Determining Type of data 
+
+class(happiness_data)
+
+#7.Table command
+
+table(happiness_data$upperwhisker)
+
+#8.Determine the structure of data
+
+str(happiness_data)
+
+#9.Summarising the data
+
+summary(happiness_data)
+
+#10.Displaying Dimension of the data
+
+dim(happiness_data)
+
+#11.Displaying length of upperwhisker column
+
+length(happiness_data$upperwhisker)
+
+##12.Displaying column names of data
+
+colnames(happiness_data) 
+
+#13.Displaying structure of some columns in the data
+
+class(happiness_data$Country)
+typeof(happiness_data$Country)
+
+#14.Displaying type of some data structure in the data
+
+typeof(happiness_data$upperwhisker)
+
+#15.List of variables present in pokemon data
+
+ls(happiness_data)
+
+#16.Some pattern matching operations on variable of happiness_data
+
+ls(happiness_data,pattern="^Sp")
+
+ls(happiness_data,pattern="^[AD]")
+
+ls(happiness_data,pattern="t.l")
+
+ls(happiness_data,pattern="ce$")
+
+#17.Display 1st row and all columns of data frame 
+
+happiness_data[1,]
+
+#18.Display all rows and 1st column of data frame
+
+happiness_data[,1]
+
+#19.Display data in 2nd row and 3rd column of the data frame
+
+happiness_data[2,3]
+
+#20.Display 1st and 2nd row and all columns 
+
+happiness_data[1:2,]
+
+#21.Display all rows and first 3 columns
+
+happiness_data[,3]
+
+#22.Selecting data where Country name is India with subset operator
+
+temp_data=subset(happiness_data,Name=="India") temp_data
+
+#23.Renaming a column in data frame 
+
+temp_happiness=happiness_datanames(temp_happiness)[names(temp_happiness)=="Total"]<-"Total_Number") temp_happiness[1,]
+
+#24.Adding a new column to dataframe 
+
+temp_happiness[["New_col"]]<-rep(c(1,2,3,4,5),209) temp_happiness[1:10,]
+
+#25.Display Sum of upperwhisker column 
+
+sum(happiness_data[5])
+
+#26.Display the maximum value of the upperwhisker column
+
+max(happiness_data[5])
+
+#27.Display the minimum value of the upperwhisker column
+
+min(happiness_data[5])
+
+#28.Attaching happiness data
+
+attach(happiness_data)
+
+#29.Now we can use variables inside happiness data 
+
+min(upperwhisker)
+
+#30.Sorting upperwhisker variable in ascending order
+
+sort(upperwhisker) 
+
+#31.Sorting upperwhisker variable in descending order 
+
+sort(upperwhisker,decreasing = TRUE)
+
+#32.Detaching happiness data 
+
+detach(happiness_data)
+
+#33.Using with operator to use variables inside data 
+
+with(happiness_data,upperwhisker)
+
+#34.Finding median of data 
+
+median(happiness_data$upperwhisker)
+
+#35.Finding mean of data 
+
+mean(happiness_data$upperwhisker)
+
+#36.Finding standard deviation of data
+
+sd(happiness_data$upperwhisker)
+
+#37.Finding variance of data 
+
+var(happiness_data$upperwhisker)
+
+#38.Order the upperwhisker column in ascending order 
+
+order(happiness_data[5])
+
+#39.Order the upperwhisker column in descending order 
+
+order(happiness_data$upperwhisker,decreasing =TRUE)
+
+#40.Rank of upperwhisker column 
+
+rank(happiness_data$upperwhisker)
+
+#41.Rank of Generosity column with average as tie breaker 
+
+rank(happiness_data$Generosity,ties.method = "average")
+
+#DPLYR operations
+
+#42.Usage of mutate function library(dplyr) Attaching package: 'dplyr'
+
+head(happiness_data %>%mutate(mutated_upperwhisker=upperwhisker-mean(upperwhisker)))
+
+#43.Adding extra column with user created vector vec = rep(c(1,2,3,4,5),209) 
+
+head(happiness_data %>% mutate(newcol = vec))
+
+#44.Group by function 
+
+new_happy=happiness_data %>% group_by(Country) head(new_happy)
+
+#45.Summarise function 
+
+head(happiness_data %>% group_by(lowerwhisker,upperwhisker) %>% summarise(weight_Generosity=mean(Generosity)))
+
+#summarise() has grouped output by 'lowerwhisker'. You can override using the .groups argument.
+
+#46.Rename operation 
+
+copy_happy=happiness_data pd_mod <- copy_happy %>% rename(renamed_upperwhisker = upperwhisker) head(pd_mod)
+
+#47.Selecting specific columns 
+
+copy_happy=happiness_data copy_happy %>% select(Country,upperwhisker,lowerwhisker,Generosity)
+
+#48.Reordering of columns using select function
+
+copy_happy=happiness_data copy_happy %>% select(Country,upperwhisker,lowerwhisker)
+
+#49.Filter command 
+
+copy_happy=happiness_data copy_happy %>% filter(Generosity >= 100 & Generosity <=105)
+
+#50.Histogram 
+
+ggplot(happiness_data, aes(x = Generosity)) +geom_histogram()
+
+#51.Histogram of Generosity column and its density 
+
+ggplot(happiness_data,aes(x=Generosity))+ geom_histogram(fill="cornsilk",color="red", size=0.2)+geom_density(color="black")
+
+#52.Line graph of Generosity column and its density
+
+ggplot(happiness_data,aes(x=Generosity))+ geom_density(fill="red",alpha=.4)
+
+#53.Line graph of Generosity column taking two alpha values
+
+ggplot(happiness_data,aes(x=Generosity))+ geom_line(stat="density")+ geom_line(stat="density",adjust=0.25, color="red")+geom_density(fill='green',alpha=0.2)
+
+#52.Dot Plot library(ggplot2) 
+
+ggplot(happiness_data,aes(x=Generosity,y=upperwhisker))+geom_dotplot(binaxis="y",stackdir = "center", binwidth = 4,fill="black")
+
+#53.Box Plot 
+
+ggplot(happiness_data, aes(x=Generosity,y=lowerwhisker))+geom_boxplot(width=0.1,fill='black')+stat_summary(func='median',fill='red',shape=21)
+
+#54.Density plot for Generosity and lowerwhisker 
+
+ggplot(happiness_data,aes(x=Generosity,y=lowerwhisker))+geom_density2d(aes(colour=..level..))
+
+#55.Violin Plot Generosity and upperwhisker 
+
+ggplot(happiness_data,aes(x=Generosity,y=upperwhisker))+geom_violin()
